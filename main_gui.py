@@ -15,7 +15,7 @@ from main import (
 )
 
 
-def fetch_and_copy(browser_name, title_entry, url_entry, title_copy_button):
+def fetch_and_copy(browser_name, title_entry, url_entry):
     hwnd = get_visible_browser_window(browser_name)
     if hwnd:
         window_title = win32gui.GetWindowText(hwnd)
@@ -33,13 +33,12 @@ def fetch_and_copy(browser_name, title_entry, url_entry, title_copy_button):
     url_entry.delete(0, tk.END)
     url_entry.insert(tk.END, "No URL")
     print("No visible browser window found.")
-    # 将焦点移动到title_copy_button
-    title_copy_button.focus()
 
 
 def copy_to_clipboard(entry):
     text = entry.get()
-    pyperclip.copy(text)
+    if not text.startswith("No ") and text:
+        pyperclip.copy(text)
 
 
 def main_window():
@@ -66,7 +65,7 @@ def main_window():
     # “运行”按钮
     run_button = ttk.Button(
         run_frame, text="运行", width=12,
-        command=lambda: fetch_and_copy(browser_var.get(), title_entry, url_entry, title_copy_button)
+        command=lambda: fetch_and_copy(browser_var.get(), title_entry, url_entry)
     )
     run_button.pack(side=tk.TOP, padx=5, pady=5, fill=tk.Y)
 
