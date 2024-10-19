@@ -14,9 +14,9 @@ BrowserSwitcher = {
 }
 SiteSwitcher = [
     # 网站名、网页标题后缀、网址分割处
-    ("抖音", " - 抖音", "?modeFrom=searchResult"),
-    ("快手", "-快手", "?authorId="),
-    ("哔哩哔哩", "_哔哩哔哩", "/?vd_source="),
+    ("抖音", " - 抖音", "?"),
+    ("快手", "-快手", "?"),
+    ("哔哩哔哩", "_哔哩哔哩", "/?"),
     ("YouTube", " - YouTube", "&")
 ]
 
