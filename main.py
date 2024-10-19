@@ -14,9 +14,9 @@ BrowserSwitcher = {
 }
 SiteSwitcher = [
     # 网站名、网页标题后缀、网址分割处
-    ("抖音", " - 抖音", "?modeFrom=searchResult"),
-    ("快手", "-快手", "?authorId="),
-    ("哔哩哔哩", "_哔哩哔哩", "/?vd_source="),
+    ("抖音", " - 抖音", "?"),
+    ("快手", "-快手", "?"),
+    ("哔哩哔哩", "_哔哩哔哩", "/?"),
     ("YouTube", " - YouTube", "&")
 ]
 
@@ -107,9 +107,9 @@ def get_active_tab_url(hwnd, title):
     # dlg.print_control_identifiers()
     # 选中地址栏并复制
     dlg.type_keys("^l")
-    sleep(0.1)
+    sleep(0.2)
     dlg.type_keys("^c")
-    sleep(0.1)
+    sleep(0.2)
     raw_url = pyperclip.paste()
     print(f"原始URL：{raw_url}")
     # 切换应用
