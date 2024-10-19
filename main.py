@@ -1,6 +1,7 @@
 from functools import partial
 from time import sleep
 
+import pyautogui
 import pyperclip
 import win32gui
 from pywinauto.application import Application
@@ -106,11 +107,13 @@ def get_active_tab_url(hwnd, title):
     # dlg.print_control_identifiers()
     # 选中地址栏并复制
     dlg.type_keys("^l")
+    sleep(0.1)
     dlg.type_keys("^c")
+    sleep(0.1)
     raw_url = pyperclip.paste()
     print(f"原始URL：{raw_url}")
-    # # 最小化
-    # dlg.minimize()
+    # 切换应用
+    pyautogui.hotkey('alt', 'tab')
     return raw_url
 
 
