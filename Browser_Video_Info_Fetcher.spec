@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='Browser Video Info Fetcher',
+    name='Browser_Video_Info_Fetcher',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

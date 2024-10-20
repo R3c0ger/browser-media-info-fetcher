@@ -6,6 +6,7 @@ import pyperclip
 import win32gui
 from pywinauto.application import Application
 
+__VERSION__ = "0.1.2"
 
 BrowserSwitcher = {
     "firefox": "Firefox",

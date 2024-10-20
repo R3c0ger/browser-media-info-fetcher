@@ -7,6 +7,7 @@ import pyperclip
 import win32gui
 
 from main import (
+    __VERSION__,
     BrowserSwitcher,
     get_visible_browser_window,
     extract_video_title,
@@ -47,7 +48,7 @@ def main_window():
     root = tk.Tk()
     # 禁止调整大小
     root.resizable(False, False)
-    root.title("Browser Video Info Fetcher")
+    root.title(f"Browser Video Info Fetcher - {__VERSION__}")
 
     # 框架容器
     main_frame = ttk.Frame(root, padding="10")
