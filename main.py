@@ -17,7 +17,7 @@ SiteSwitcher = [
     ("抖音", " - 抖音", "?"),
     ("快手", "-快手", "?"),
     ("哔哩哔哩", "_哔哩哔哩", "/?"),
-    ("YouTube", " - YouTube", "&")
+    ("YouTube", " - YouTube", "&ab_channel=")
 ]
 
 
