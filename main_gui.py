@@ -27,6 +27,8 @@ def fetch_and_copy(browser_name, title_entry, url_entry):
             title_entry.insert(tk.END, video_title)
             url_entry.delete(0, tk.END)
             url_entry.insert(tk.END, pure_url)
+            # # 自动复制标题
+            # pyperclip.copy(video_title)
             return video_title, pure_url
     title_entry.delete(0, tk.END)
     title_entry.insert(tk.END, "No title")
@@ -58,26 +60,34 @@ def main_window():
     browser_var = tk.StringVar()
     browser_var.set("firefox")  # 默认选项
     browser_menu = ttk.Combobox(
-        run_frame, textvariable=browser_var, values=list(BrowserSwitcher.keys()), width=10
+        run_frame, textvariable=browser_var, values=list(BrowserSwitcher.keys()), 
+        width=10
+        # width=13
+
     )
     browser_menu.pack(side=tk.BOTTOM, padx=5, pady=5)
 
     # “运行”按钮
     run_button = ttk.Button(
         run_frame, text="运行", width=12,
+        # run_frame, text="运行抓取(Ctrl+R)", width=15,
         command=lambda: fetch_and_copy(browser_var.get(), title_entry, url_entry)
     )
     run_button.pack(side=tk.TOP, padx=5, pady=5, fill=tk.Y)
+    # root.bind("<Control-r>", lambda event: run_button.invoke())
 
     # 输出标题栏
     title_frame = ttk.Frame(main_frame)
     title_frame.pack(side=tk.TOP, padx=5, pady=5)
     title_label = ttk.Label(title_frame, text="标题:")
     title_label.pack(side=tk.LEFT, padx=5, pady=5)
+    # default_msg = tk.StringVar(value="若成功抓取，则自动复制该项")
+    # title_entry = ttk.Entry(title_frame, width=50, textvariable=default_msg)
     title_entry = ttk.Entry(title_frame, width=50)
     title_entry.pack(side=tk.LEFT, padx=5, pady=5)
     title_copy_button = ttk.Button(title_frame, text="复制", command=lambda: copy_to_clipboard(title_entry))
     title_copy_button.pack(side=tk.LEFT, padx=5, pady=5)
+    # root.bind("<Alt-1>", lambda event: copy_to_clipboard(title_entry))
 
     # 输出URL栏
     url_frame = ttk.Frame(main_frame)
@@ -88,6 +98,7 @@ def main_window():
     url_entry.pack(side=tk.LEFT, padx=5, pady=5)
     url_copy_button = ttk.Button(url_frame, text="复制", command=lambda: copy_to_clipboard(url_entry))
     url_copy_button.pack(side=tk.LEFT, padx=5, pady=5)
+    # root.bind("<Alt-2>", lambda event: copy_to_clipboard(url_entry))
 
     root.mainloop()
 
