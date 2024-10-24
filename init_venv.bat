@@ -1,11 +1,14 @@
 @REM Author: Recogerous
-@REM Version: v1.3
+@REM Version: v1.4
 @REM Description: 该脚本用于初始化Python虚拟环境
 @echo off & cls
 chcp 65001 > nul
 
-@REM 询问是否新建环境，默认为否
-set /p create_env="是否新建Python虚拟环境？(y/n)[n]:"
+@REM 询问是否新建环境，默认为否，下面两个空行必须保留
+
+echo 是否在当前目录下新建Python venv虚拟环境？
+
+set /p create_env="这将覆盖已有的名为venv的环境(y/n)[n]:"
 if "%create_env%" == "" (
     set create_env=n
 )
