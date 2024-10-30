@@ -7,13 +7,13 @@ import pyperclip
 import win32gui
 
 from main import (
-    __VERSION__,
     BrowserSwitcher,
     get_visible_browser_window,
     extract_video_title,
     get_active_tab_url,
     extract_video_url,
 )
+from version import __VERSION__
 
 
 def fetch_and_copy(browser_name, title_entry, url_entry):
