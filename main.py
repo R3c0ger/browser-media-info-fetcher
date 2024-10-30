@@ -15,10 +15,10 @@ BrowserSwitcher = {
 }
 SiteSwitcher = [
     # 网站名、网页标题后缀、网址分割处
-    ("抖音", " - 抖音", "?"),
-    ("快手", "-快手", "?"),
-    ("哔哩哔哩", "_哔哩哔哩", "/?"),
-    ("YouTube", " - YouTube", "&ab_channel=")
+    ("抖音", " - 抖音", ["?",]),
+    ("快手", "-快手", ["?",]),
+    ("哔哩哔哩", "_哔哩哔哩", ["/?", "?", ]),
+    ("YouTube", " - YouTube", ["&ab_channel=",])
 ]
 
 
@@ -138,11 +138,11 @@ def extract_video_url(raw_url, site_index_in_switcher):
         print(f"该网站不属于：{sites_str}")
         return raw_url
     site_tuple = SiteSwitcher[site_index_in_switcher]
-    if site_tuple[2] in raw_url:
-        url = raw_url.split(site_tuple[2])[0]
-        print(f"提取到的URL：{url}")
-        return url
-    else:
+    for param in site_tuple[2]:
+        if param in raw_url:
+            extracted_url = raw_url.split(param)[0]
+            print(f"提取到的URL：{extracted_url}")
+            return extracted_url
         print(f"提取到的URL（无需处理）：{raw_url}")
         return raw_url
 
