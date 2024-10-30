@@ -23,18 +23,6 @@ SiteSwitcher = [
 
 
 def enum_windows_callback(hwnd, results, browser_name="firefox"):
-    """
-    Callback function for enumerating windows.
-
-    This function is called for each top-level window by `win32gui.EnumWindows`.
-    It checks if the window title contains the specified browser name and, if so,
-    appends the window handle to the results list.
-
-    Args:
-        hwnd (int): Handle to a top-level window.
-        results (list): List to store window handles that match the browser name.
-        browser_name (str, optional): The name of the browser to look for in window titles. Defaults to "firefox".
-    """
     if BrowserSwitcher[browser_name] in win32gui.GetWindowText(hwnd):
         # # 获取窗口类名
         # class_name = win32gui.GetClassName(hwnd)
@@ -43,19 +31,6 @@ def enum_windows_callback(hwnd, results, browser_name="firefox"):
 
 
 def get_visible_browser_window(browser_name="firefox"):
-    """
-    Enumerate all windows and return the first visible browser window.
-
-    This function enumerates all top-level windows and returns the handle of the first
-    visible window that matches the specified browser name.
-
-    Args:
-        browser_name (str, optional): The name of the browser to look for in window titles. Defaults to "firefox".
-
-    Returns:
-        int or None: The handle of the first visible browser window that matches the browser name,
-                     or None if no such window is found.
-    """
     # 枚举所有窗口，返回第一个可见的火狐浏览器窗口
     results = []
     callback = partial(enum_windows_callback, browser_name=browser_name)
@@ -65,19 +40,6 @@ def get_visible_browser_window(browser_name="firefox"):
 
 
 def extract_video_title(title):
-    """
-    Extract the video title and its corresponding site index from the window title.
-
-    This function iterates through the `SiteSwitcher` list to find a match for the given title.
-    If a match is found, it extracts the pure title and the index of the site in the `SiteSwitcher` list.
-
-    Args:
-        title (str): The window title to extract the video title from.
-
-    Returns:
-        tuple: A tuple containing the pure title (str) and the site index (int).
-               If no match is found, returns (None, -1).
-    """
     for site_tuple in SiteSwitcher:
         if site_tuple[1] in title:
             pure_title = title.split(site_tuple[1])[0]
@@ -89,19 +51,6 @@ def extract_video_title(title):
 
 
 def get_active_tab_url(hwnd, title):
-    """
-    Get the URL of the active tab in the specified browser window.
-
-    This function connects to the browser window using its handle and title,
-    selects the address bar, copies the URL, and returns it.
-
-    Args:
-        hwnd (int): Handle to the browser window.
-        title (str): Title of the browser window.
-
-    Returns:
-        str: The URL of the active tab.
-    """
     app = Application(backend="uia").connect(handle=hwnd)
     dlg = app[title]
     # print(dlg.exists(timeout=None, retry_interval=None))
@@ -119,20 +68,6 @@ def get_active_tab_url(hwnd, title):
 
 
 def extract_video_url(raw_url, site_index_in_switcher):
-    """
-    Extract the video URL based on the site index.
-
-    This function checks if the site index is valid and extracts the video URL
-    from the raw URL based on the site-specific delimiter.
-
-    Args:
-        raw_url (str): The raw URL to extract the video URL from.
-        site_index_in_switcher (int): The index of the site in the SiteSwitcher list.
-
-    Returns:
-        str: The extracted video URL if the site index is valid and the delimiter is found in the raw URL.
-             Otherwise, returns the raw URL.
-    """
     if site_index_in_switcher == -1:
         sites_str = "、".join([site_tuple[0] for site_tuple in SiteSwitcher])
         print(f"该网站不属于：{sites_str}")
@@ -143,8 +78,8 @@ def extract_video_url(raw_url, site_index_in_switcher):
             extracted_url = raw_url.split(param)[0]
             print(f"提取到的URL：{extracted_url}")
             return extracted_url
-        print(f"提取到的URL（无需处理）：{raw_url}")
-        return raw_url
+    print(f"提取到的URL（无需处理）：{raw_url}")
+    return raw_url
 
 
 def main():
