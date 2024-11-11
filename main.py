@@ -1,4 +1,3 @@
-from functools import partial
 from time import sleep
 
 import pyautogui
@@ -21,20 +20,21 @@ SiteSwitcher = [
 ]
 
 
-def enum_windows_callback(hwnd, results, browser_name="firefox"):
+def enum_windows_callback(hwnd, results):
+    all_browser_name = list(BrowserSwitcher.keys())
+    for browser_name in all_browser_name:
     if BrowserSwitcher[browser_name] in win32gui.GetWindowText(hwnd):
-        # # 获取窗口类名
-        # class_name = win32gui.GetClassName(hwnd)
-        # print(class_name)
+            # 获取窗口类名
+            class_name = win32gui.GetClassName(hwnd)
+            print(class_name)
         results.append(hwnd)
 
 
-def get_visible_browser_window(browser_name="firefox"):
-    # 枚举所有窗口，返回第一个可见的火狐浏览器窗口
+def get_visible_browser_window():
+    # 枚举所有窗口，返回第一个可见的浏览器窗口
     results = []
-    callback = partial(enum_windows_callback, browser_name=browser_name)
-    win32gui.EnumWindows(callback, results)
-    # print(results)
+    win32gui.EnumWindows(enum_windows_callback, results)
+    print(results)
     return results[0] if results else None
 
 
@@ -82,8 +82,7 @@ def extract_video_url(raw_url, site_index_in_switcher):
 
 
 def main():
-    browser_name = "firefox"
-    hwnd = get_visible_browser_window(browser_name)
+    hwnd = get_visible_browser_window()
     if hwnd:
         # 获取窗口标题
         window_title = win32gui.GetWindowText(hwnd)

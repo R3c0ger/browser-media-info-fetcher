@@ -7,7 +7,6 @@ import pyperclip
 import win32gui
 
 from main import (
-    BrowserSwitcher,
     get_visible_browser_window,
     extract_video_title,
     get_active_tab_url,
@@ -16,8 +15,8 @@ from main import (
 from version import __VERSION__
 
 
-def fetch_and_copy(browser_name, title_entry, url_entry):
-    hwnd = get_visible_browser_window(browser_name)
+def fetch_and_copy(title_entry, url_entry):
+    hwnd = get_visible_browser_window()
     if hwnd:
         window_title = win32gui.GetWindowText(hwnd)
         video_title, site_index = extract_video_title(window_title)
@@ -55,26 +54,15 @@ def main_window():
     main_frame.grid(row=0, column=0)
 
     run_frame = ttk.Frame(main_frame)
-    run_frame.pack(side=tk.LEFT, padx=5)
-
-    # 下拉选择框
-    browser_var = tk.StringVar()
-    browser_var.set("firefox")  # 默认选项
-    browser_menu = ttk.Combobox(
-        run_frame, textvariable=browser_var, values=list(BrowserSwitcher.keys()), 
-        width=10
-        # width=13
-
-    )
-    browser_menu.pack(side=tk.BOTTOM, padx=5, pady=5)
+    run_frame.pack(side=tk.LEFT, fill=tk.Y, expand=True)
 
     # “运行”按钮
     run_button = ttk.Button(
         run_frame, text="运行", width=12,
         # run_frame, text="运行抓取(Ctrl+R)", width=15,
-        command=lambda: fetch_and_copy(browser_var.get(), title_entry, url_entry)
+        command=lambda: fetch_and_copy(title_entry, url_entry)
     )
-    run_button.pack(side=tk.TOP, padx=5, pady=5, fill=tk.Y)
+    run_button.pack(side=tk.TOP, padx=5, pady=5, fill=tk.Y, expand=True)
     # root.bind("<Control-r>", lambda event: run_button.invoke())
 
     # 输出标题栏
