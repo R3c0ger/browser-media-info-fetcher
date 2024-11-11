@@ -23,11 +23,11 @@ SiteSwitcher = [
 def enum_windows_callback(hwnd, results):
     all_browser_name = list(BrowserSwitcher.keys())
     for browser_name in all_browser_name:
-    if BrowserSwitcher[browser_name] in win32gui.GetWindowText(hwnd):
+        if BrowserSwitcher[browser_name] in win32gui.GetWindowText(hwnd):
             # 获取窗口类名
             class_name = win32gui.GetClassName(hwnd)
             print(class_name)
-        results.append(hwnd)
+            results.append(hwnd)
 
 
 def get_visible_browser_window():
@@ -63,6 +63,8 @@ def get_active_tab_url(hwnd, title):
     print(f"原始URL：{raw_url}")
     # 切换应用
     pyautogui.hotkey('alt', 'tab')
+    # 松开 Alt 键
+    pyautogui.keyUp('alt')
     return raw_url
 
 
