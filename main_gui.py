@@ -58,12 +58,12 @@ def main_window():
 
     # “运行”按钮
     run_button = ttk.Button(
-        run_frame, text="运行", width=12,
-        # run_frame, text="运行抓取(Ctrl+R)", width=15,
+        # run_frame, text="运行", width=12,
+        run_frame, text="运行抓取\n(Ctrl+R)", width=15,
         command=lambda: fetch_and_copy(title_entry, url_entry)
     )
     run_button.pack(side=tk.TOP, padx=5, pady=5, fill=tk.Y, expand=True)
-    # root.bind("<Control-r>", lambda event: run_button.invoke())
+    root.bind("<Control-r>", lambda event: run_button.invoke())
 
     # 输出标题栏
     title_frame = ttk.Frame(main_frame)
